@@ -1,6 +1,10 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-API_KEY = "YOUR_API_KEY"
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 
 city_name = input("Enter city name: ")
 
@@ -13,4 +17,16 @@ response = requests.get(api_url)
 
 weather_data = response.json()
 
-print(weather_data)
+if weather_data["cod"] == 200:
+
+    temperature = weather_data["main"]["temp"]
+
+    humidity = weather_data["main"]["humidity"]
+
+    print("\n====== WEATHER REPORT ======")
+    print(f"City: {city_name}")
+    print(f"Temperature: {temperature} °C")
+    print(f"Humidity: {humidity}%")
+
+else:
+    print("\nCity not found.")
