@@ -6,6 +6,8 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
+print("\n======= LIVE WEATHER APPLICATION =======")
+
 city_name = input("Enter city name: ")
 
 api_url = (
@@ -23,10 +25,18 @@ if weather_data["cod"] == 200:
 
     humidity = weather_data["main"]["humidity"]
 
-    print("\n====== WEATHER REPORT ======")
+    weather_description = (
+        weather_data["weather"][0]["description"]
+    )
+
+    wind_speed = weather_data["wind"]["speed"]
+
+    print("\n======= WEATHER REPORT =======")
     print(f"City: {city_name}")
     print(f"Temperature: {temperature} °C")
     print(f"Humidity: {humidity}%")
+    print(f"Condition: {weather_description}")
+    print(f"Wind Speed: {wind_speed} m/s")
 
 else:
     print("\nCity not found.")
